@@ -9,7 +9,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property string $email
+ * @property string $login
  * @property string $password
  * @property User   $user
  */
@@ -39,7 +39,7 @@ class LoginRequest extends FormRequest
     protected function passedValidation(): void
     {
         /** @var User|null $user */
-        $user = User::query()->where('email', $this->email)->first();
+        $user = User::query()->where('name', $this->login)->first();
 
         if (! ($user && password_verify($this->password, $user->password))) {
             throw new AuthenticationException('Incorrect email or password');
