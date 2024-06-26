@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\Transaction\TransactionCreateData;
 use App\Http\Resources\TransactionResource;
+use App\Models\Transaction;
 use App\Services\TransactionService;
 
 class TransactionController extends Controller
@@ -18,5 +19,10 @@ class TransactionController extends Controller
         return new TransactionResource(
             $this->transactionService->create($data)
         );
+    }
+
+    public function show(Transaction $transaction): TransactionResource
+    {
+        return new TransactionResource($transaction);
     }
 }
