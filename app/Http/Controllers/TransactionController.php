@@ -25,4 +25,9 @@ class TransactionController extends Controller
     {
         return new TransactionResource($transaction);
     }
+
+    public function destroy(Transaction $transaction): bool
+    {
+        return $this->transactionService->delete($transaction);
+    }
 }

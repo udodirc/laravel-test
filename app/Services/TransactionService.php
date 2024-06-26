@@ -18,4 +18,9 @@ class TransactionService
 
         return $transaction;
     }
+
+    public function delete(Transaction $transaction): bool
+    {
+        return (bool) $transaction->delete();
+    }
 }
