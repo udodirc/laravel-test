@@ -2,6 +2,7 @@
 
 namespace App\Data\Transaction;
 
+use Spatie\LaravelData\Attributes\Validation\IntegerType;
 use Spatie\LaravelData\Attributes\Validation\Numeric;
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\StringType;
@@ -13,6 +14,7 @@ class TransactionCreateData extends Data
     public function __construct(
         public string $title,
         public float $amount,
+        public int $type
     ) {
     }
 
@@ -26,6 +28,10 @@ class TransactionCreateData extends Data
             'amount' => [
                 new Required(),
                 new Numeric(),
+            ],
+            'type' => [
+                new Required(),
+                new IntegerType(),
             ],
         ];
     }

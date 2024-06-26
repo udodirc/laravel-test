@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int    $user_id
  * @property string $title
  * @property float  $amount
+ * @property int $type
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
