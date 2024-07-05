@@ -23,4 +23,10 @@ class TransactionQueryBuilder extends Builder
         (new Carbon)->parse($date),
         (new Carbon)->parse($date)->addDays(1)]);
     }
+
+    public function byAmountAndDate(string $startDate, string $endDate): TransactionQueryBuilder
+    {
+        return $this->whereDate('created_at','>=', $startDate)
+                    ->whereDate('created_at','<=', $endDate);
+    }
 }

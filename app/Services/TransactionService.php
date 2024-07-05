@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Data\Transaction\TransactionAmountData;
 use App\Data\Transaction\TransactionCreateData;
 use App\Data\Transaction\TransactionFilterData;
 use App\Models\Transaction;
@@ -29,6 +30,20 @@ class TransactionService
             ->when(
                 ! $filter->createdDate instanceof Optional,
                 fn (TransactionQueryBuilder $q) => $q->createdDate($filter->createdDate)
+            )
+            ->get();
+    }
+
+    public function amount(TransactionAmountData $filter): Collection
+    {
+        return Transaction::query()
+            ->when(
+                (! $filter->startDate instanceof Optional) && (! $filter->endDate instanceof Optional),
+                fn (TransactionQueryBuilder $q) => $q->byAmountAndDate($filter->startDate, $filter->endDate)
+            )
+            ->when(
+                (! $filter->type instanceof Optional) && ($filter->type > 0),
+                fn (TransactionQueryBuilder $q) => $q->byType($filter->type)
             )
             ->get();
     }

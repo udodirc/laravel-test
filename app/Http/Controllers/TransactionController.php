@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Transaction\TransactionAmountData;
 use App\Data\Transaction\TransactionCreateData;
 use App\Data\Transaction\TransactionFilterData;
 use App\Http\Resources\TransactionResource;
@@ -38,5 +39,12 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction): bool
     {
         return $this->transactionService->delete($transaction);
+    }
+
+    public function amount(TransactionAmountData $filterData): AnonymousResourceCollection
+    {
+        return TransactionResource::collection(
+            $this->transactionService->amount($filterData)
+        );
     }
 }

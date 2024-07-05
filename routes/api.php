@@ -23,3 +23,4 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 Route::apiResources([
     'transactions' => TransactionController::class
 ]);
+Route::post('/transactions/amount', [TransactionController::class, 'amount'])->name('transactions-amount');
