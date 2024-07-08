@@ -20,7 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/login', [LoginController::class, 'store'])->name('login');
-Route::apiResources([
-    'transactions' => TransactionController::class
-]);
+Route::group(['middleware' => 'last-seen'], function () {
+    Route::apiResources([
+        'transactions' => TransactionController::class
+    ]);
+});
+
 Route::post('/transactions/amount', [TransactionController::class, 'amount'])->name('transactions-amount');
