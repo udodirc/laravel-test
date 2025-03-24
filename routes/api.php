@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/login', [LoginController::class, 'store'])->name('login');
+Route::group(['middleware' => 'last-seen'], function () {
+    Route::apiResources([
+        'transactions' => TransactionController::class
+    ]);
+});
+
+Route::post('/transactions/amount', [TransactionController::class, 'amount'])->name('transactions-amount');
